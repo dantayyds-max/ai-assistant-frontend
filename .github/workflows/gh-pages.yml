@@ -1,0 +1,24 @@
+name: Deploy Frontend to GitHub Pages
+
+# 当 main 分支有 push 时触发
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 检出仓库代码
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. 使用 GitHub Pages Action 发布
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./       # 根目录下有 index.html
+          # publish_branch: gh-pages # 如果你想部署到 gh-pages 分支，可以取消注释
